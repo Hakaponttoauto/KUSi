@@ -1,7 +1,2 @@
 distro/temp_sources/*
 distro/OS/vmlinuz
-distro/rootfs/bin/*
-distro/rootfs/etc/*
-distro/rootfs/lib/*
-distro/rootfs/share/*
-distro/rootfs/usr/*
