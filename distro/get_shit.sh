@@ -1,7 +1,6 @@
 
 
-mkdir ./temp_sources
-cd ./temp_sources
+mkdir -f ./temp_sources && cd ./temp_sources
 
 libc_url=https://musl.libc.org/releases/musl-1.2.2.tar.gz
 libc=musl-1.2.2
@@ -18,7 +17,7 @@ mkdir tempfs
 
 echo "---- BUILDING MUSL ----"
 ./configure --prefix="$(realpath ./tempfs/usr/)" --syslibdir="$(realpath ./tempfs/lib)"
-make
+make -j$(nproc)
 make install
 
 cp -r ./tempfs/usr/* ../../rootfs/usr
@@ -42,7 +41,7 @@ echo "---- BUILDING DASH ----"
 mkdir tempfs
 
 ./configure --exec-prefix=$(realpath ./tempfs) --prefix=$(realpath ./tempfs/usr/local)
-make
+make -j$(nproc)
 make install
 
 cp -r ./tempfs/* ../../rootfs/
@@ -62,7 +61,7 @@ cd $lua
 
 echo "---- BUILDING LUA ----"
 mkdir tempfs
-make PREFIX="$(realpath ./tempfs/)"
+make -j$(nproc) PREFIX="$(realpath ./tempfs/)"
 make install DESTDIR="$(realpath ./tempfs/)"
 
 cp -r ./tempfs/usr/local/* ../../rootfs/usr
